@@ -3,13 +3,12 @@ import { useState } from "react";
 import "milligram";
 import LoginForm from "./LoginForm";
 import LoggedInForm from "./LoggedInForm";
-import NewMeetingForm from "./meetings/NewMeetingForm";
-import MeetingsList from "./meetings/MeetingsList";
 import MeetingPage from "./meetings/MeetingPage";
 
 function App() {
   const [email, setEmail] = useState("");
   const [logged, setLogin] = useState(false);
+  const [meetings, setMeetings] = useState([]);
 
   function login(emailFromForm) {
     setEmail(emailFromForm);
@@ -21,12 +20,17 @@ function App() {
   setLogin(false);
   }
 
+  function addMeeting(meeting) {
+    const nextMeetings = [...meetings, meeting];
+    setMeetings(nextMeetings);
+  }
+
   if (logged) {
     return (
       <div>
         <h1>Witaj w systemie do zapisów na zajęcia</h1>
         <LoggedInForm email={email} onLogout={logout} />
-        <MeetingPage />
+        <MeetingPage meetings={meetings} onNewMeeting={addMeeting} />
       </div>
     );
   }
