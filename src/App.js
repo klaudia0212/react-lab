@@ -4,7 +4,8 @@ import {useState} from "react";
 
 
 function App() {
-  const [email, setEmail] = useState('fracz@agh.edu.pl');
+  const [email, setEmail] = useState('klaudia@gmail.com');
+  const [logged, setLogged] = useState(false);
 
     function handleChange(event) {
         setEmail(event.target.value);
@@ -19,14 +20,26 @@ function App() {
       message = <div>za długi adres email</div>;
     }
   
-    return (
-        <div>
-            <h1>System do zapisów na zajęcia</h1>
-            <h2>Twój email to {email}</h2>
-            {message}
-            <input type="text" value={email} onChange={handleChange}/>
-        </div>
-    );
+if (logged){
+  return(
+    <div>
+        <h1>Witaj w sysytemie do zapisów na zajęcia</h1>
+        <h2>Witaj {email}!</h2>
+        <button type="button" onClick={() => setLogged(false)}>Wyloguj</button>
+      </div>
+  );
+}
+ return (
+    <div>
+      <h1>Witaj w sysytemie do zapisów na zajęcia</h1>
+      <h2>Zaloguj się e-mailem</h2>
+      {message}
+      <input type="text" value={email} onChange={handleChange} />
+      <button type="button" onClick={() => setLogged(true)}>
+        Wchodzę
+      </button>
+    </div>
+  );
 }
 
 export default App;
